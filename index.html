@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Control del Negocio — Bolitas, Waffles y Donitas</title>
 
+    <!-- PWA: esto es lo que le permite a Chrome ofrecer "Instalar app" -->
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#3D2B1F" />
+    <link rel="icon" href="icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap"
@@ -167,6 +173,27 @@
             <div>
               <span>Avril</span><strong id="salario-avril">$0.00</strong>
             </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Respaldo del historial</h2>
+          <p class="card-nota">
+            Tus cortes cerrados se guardan en este celular. Por si acaso
+            (cambias de celular, borras datos del navegador, etc.), descarga
+            aquí una copia de respaldo, o restaura una que ya tengas.
+          </p>
+          <div class="respaldo-botones">
+            <button id="btn-respaldar" class="btn-secundario" type="button">
+              ⬇️ Descargar respaldo
+            </button>
+            <label class="btn-secundario btn-archivo">
+              ⬆️ Restaurar respaldo
+              <input type="file" id="input-restaurar" accept="application/json" />
+            </label>
+            <button id="btn-borrar-respaldo" class="btn-peligro" type="button">
+              🗑️ Borrar historial
+            </button>
           </div>
         </div>
 

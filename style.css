@@ -217,6 +217,58 @@ input[type="number"], select {
 }
 .btn-secundario:hover { background: #2b1c13; }
 
+/* ---------- Respaldo ---------- */
+.respaldo-botones {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.respaldo-botones .btn-secundario {
+  width: auto;
+  margin-top: 0;
+  flex: 1;
+  min-width: 180px;
+  text-align: center;
+}
+
+.btn-archivo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+.btn-archivo input[type="file"] {
+  display: none;
+}
+
+.btn-peligro {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  border: 1px solid var(--berry);
+  background: transparent;
+  color: var(--berry);
+  padding: 12px 20px;
+  border-radius: 9px;
+  cursor: pointer;
+  width: auto;
+  flex: 1;
+  min-width: 180px;
+  text-align: center;
+}
+
+.btn-peligro:hover {
+  background: var(--berry);
+  color: var(--white);
+}
+
+@media (max-width: 480px) {
+  .respaldo-botones { flex-direction: column; }
+}
+
 /* ---------- Ticket de ventas (elemento distintivo) ---------- */
 .ventas-grid { align-items: start; }
 

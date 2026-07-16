@@ -421,12 +421,40 @@ function importarHistorial(archivo) {
   lector.readAsText(archivo);
 }
 
+function borrarHistorial() {
+  const historial = getHistorial();
+  if (historial.length === 0) {
+    alert("Ya no hay ningún historial guardado.");
+    return;
+  }
+  const confirmar = confirm(
+    `Esto va a BORRAR permanentemente tus ${historial.length} corte(s) guardados de este celular. ` +
+    `Si no tienes un respaldo descargado, no se puede recuperar. ¿Seguro que quieres continuar?`
+  );
+  if (!confirmar) return;
+
+  localStorage.removeItem("historialCortes");
+  renderSalarios();
+  alert("Historial borrado.");
+}
+
 function initRespaldo() {
-  document.getElementById("btn-respaldar").addEventListener("click", exportarHistorial);
-  document.getElementById("input-restaurar").addEventListener("change", e => {
-    if (e.target.files[0]) importarHistorial(e.target.files[0]);
-    e.target.value = ""; // permite volver a elegir el mismo archivo después
-  });
+  const btnRespaldar = document.getElementById("btn-respaldar");
+  const inputRestaurar = document.getElementById("input-restaurar");
+  const btnBorrar = document.getElementById("btn-borrar-respaldo");
+
+  // *** Antes esto tronaba si los botones no existían en el HTML, y como
+  // era el último init() antes de renderVentas()/renderSalarios(), esos dos
+  // nunca se ejecutaban al cargar la página. Por eso las ventas guardadas
+  // en localStorage no se veían al recargar (parecía que se borraban).
+  if (btnRespaldar) btnRespaldar.addEventListener("click", exportarHistorial);
+  if (inputRestaurar) {
+    inputRestaurar.addEventListener("change", e => {
+      if (e.target.files[0]) importarHistorial(e.target.files[0]);
+      e.target.value = ""; // permite volver a elegir el mismo archivo después
+    });
+  }
+  if (btnBorrar) btnBorrar.addEventListener("click", borrarHistorial);
 }
 
 // ---------------------------------------------------------
@@ -488,11 +516,20 @@ function renderChartHistorial(historial) {
 // ---------------------------------------------------------
 
 document.addEventListener("DOMContentLoaded", () => {
-  initTabs();
-  initProductos();
-  initFormVenta();
-  initCerrarCorte();
-  initRespaldo();
-  renderVentas();
-  renderSalarios();
+  // *** Cada init() va en su propio try/catch: si algo llegara a fallar en
+  // una sección, las demás (sobre todo renderVentas/renderSalarios, que son
+  // las que muestran tus ventas guardadas) igual se ejecutan.
+  const pasos = [initTabs, initProductos, initFormVenta, initCerrarCorte, initRespaldo, renderVentas, renderSalarios];
+  pasos.forEach(paso => {
+    try {
+      paso();
+    } catch (err) {
+      console.error(`Error en ${paso.name}:`, err);
+    }
+  });
+
+  // Registro del Service Worker para que la app funcione instalada y sin internet
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js").catch(err => console.error("Error registrando SW:", err));
+  }
 });
