@@ -1,0 +1,328 @@
+:root {
+  --cream: #FFF8EC;
+  --cream-dark: #F3E9D4;
+  --choco: #3D2B1F;
+  --choco-soft: #6B4F3F;
+  --maple: #C17817;
+  --maple-dark: #9C5F12;
+  --butter: #F5B942;
+  --berry: #D6486B;
+  --leaf: #5B7B4F;
+  --line: #E3D5B8;
+  --white: #FFFFFF;
+
+  --font-display: 'Baloo 2', sans-serif;
+  --font-body: 'Work Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--choco);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  color: var(--choco);
+  margin: 0 0 4px;
+}
+
+code {
+  font-family: var(--font-mono);
+  background: var(--cream-dark);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* ---------- Header ---------- */
+.app-header {
+  background: var(--choco);
+  color: var(--cream);
+  padding: 28px 24px 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0 2px, transparent 2px 22px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 2px, transparent 2px 22px);
+}
+
+.header-inner h1 {
+  color: var(--cream);
+  font-size: 1.9rem;
+}
+
+.subtitulo {
+  margin: 0 0 20px;
+  color: var(--butter);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.tab-btn {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--cream-dark);
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 10px 10px 0 0;
+  opacity: 0.65;
+  transition: opacity 0.15s, background 0.15s;
+}
+
+.tab-btn:hover { opacity: 0.9; }
+
+.tab-btn.active {
+  background: var(--cream);
+  color: var(--choco);
+  opacity: 1;
+}
+
+/* ---------- Layout ---------- */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 24px 60px;
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 22px;
+}
+
+.card-nota {
+  color: var(--choco-soft);
+  font-size: 0.88rem;
+  margin-top: -2px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+@media (max-width: 720px) {
+  .card-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Tablas ---------- */
+.tabla-wrap { overflow-x: auto; }
+
+.tabla-datos {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  margin-top: 10px;
+}
+
+.tabla-datos th {
+  text-align: left;
+  background: var(--cream-dark);
+  color: var(--choco-soft);
+  font-weight: 600;
+  padding: 8px 10px;
+  border-bottom: 2px solid var(--line);
+}
+
+.tabla-datos td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+}
+
+.tabla-datos td:first-child, .tabla-datos th:first-child {
+  font-family: var(--font-body);
+}
+
+.tabla-datos .ganancia-positiva { color: var(--leaf); font-weight: 600; }
+
+.menu-linea-titulo {
+  font-family: var(--font-display);
+  color: var(--maple-dark);
+  margin: 18px 0 4px;
+}
+
+/* ---------- Formularios ---------- */
+label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--choco-soft);
+  margin-bottom: 14px;
+}
+
+.check-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.check-label input { width: auto; }
+
+input[type="number"], select {
+  width: 100%;
+  margin-top: 5px;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: var(--cream);
+  color: var(--choco);
+}
+
+.oculto { display: none; }
+
+.btn-primario, .btn-secundario {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 9px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn-primario {
+  background: var(--maple);
+  color: var(--white);
+}
+.btn-primario:hover { background: var(--maple-dark); }
+
+.btn-secundario {
+  background: var(--choco);
+  color: var(--cream);
+  margin-top: 16px;
+}
+.btn-secundario:hover { background: #2b1c13; }
+
+/* ---------- Ticket de ventas (elemento distintivo) ---------- */
+.ventas-grid { align-items: start; }
+
+.ticket-card {
+  background: var(--cream);
+  position: relative;
+}
+
+.fecha-hoy {
+  font-family: var(--font-mono);
+  color: var(--choco-soft);
+  font-size: 0.85rem;
+  margin-top: -6px;
+}
+
+.ticket-lista {
+  list-style: none;
+  margin: 14px 0;
+  padding: 14px 0;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  border-top: 2px dashed var(--choco-soft);
+  border-bottom: 2px dashed var(--choco-soft);
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.ticket-lista li {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 2px;
+  border-bottom: 1px dotted var(--line);
+}
+
+.ticket-lista li .venta-desc { color: var(--choco); }
+.ticket-lista li .venta-monto { color: var(--maple-dark); font-weight: 600; }
+
+.ticket-lista .btn-borrar {
+  background: none;
+  border: none;
+  color: var(--berry);
+  cursor: pointer;
+  font-weight: 700;
+  padding: 0 4px;
+}
+
+.ticket-lista .vacio {
+  text-align: center;
+  color: var(--choco-soft);
+  padding: 20px 0;
+  border-bottom: none;
+}
+
+.ticket-totales div {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-family: var(--font-mono);
+}
+
+.ticket-totales .total-ganancia {
+  border-top: 1px solid var(--line);
+  margin-top: 6px;
+  padding-top: 10px;
+  font-size: 1.05rem;
+}
+.ticket-totales .total-ganancia strong { color: var(--leaf); }
+
+/* ---------- Salarios ---------- */
+.pct-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 720px) {
+  .pct-grid { grid-template-columns: 1fr; }
+}
+
+.salarios-hoy {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.salarios-hoy div {
+  background: var(--cream-dark);
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+}
+
+.salarios-hoy span {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--choco-soft);
+  margin-bottom: 4px;
+}
+
+.salarios-hoy strong {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  color: var(--maple-dark);
+}
+
+@media (max-width: 720px) {
+  .salarios-hoy { grid-template-columns: 1fr; }
+}

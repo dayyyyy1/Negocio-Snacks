@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Control del Negocio — Bolitas, Waffles y Donitas</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="header-inner">
+        <h1>Control del Negocio</h1>
+        <p class="subtitulo">
+          Bolitas de Hot Cake · Waffles Premium · Mini Donitas
+        </p>
+      </div>
+      <nav class="tabs">
+        <button class="tab-btn active" data-tab="productos">
+          📋 Productos
+        </button>
+        <button class="tab-btn" data-tab="ventas">🧾 Ventas</button>
+        <button class="tab-btn" data-tab="salarios">💰 Salarios</button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- ===================== TAB: PRODUCTOS ===================== -->
+      <section id="tab-productos" class="tab-panel active">
+        <div class="card">
+          <h2>Insumos y materia prima</h2>
+          <p class="card-nota">
+            Costo prorrateado por medida de receta. Si cambia el precio en el
+            súper, actualízalo en <code>data.js</code>.
+          </p>
+          <div class="tabla-wrap">
+            <table class="tabla-datos">
+              <thead>
+                <tr>
+                  <th>Ingrediente</th>
+                  <th>Presentación</th>
+                  <th>Precio comercial</th>
+                  <th>Medida en receta</th>
+                  <th>Costo prorrateado</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-insumos-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Menú, costos y ganancias</h2>
+          <div id="tabla-menu"></div>
+        </div>
+
+        <div class="card-grid">
+          <div class="card">
+            <h3>Ganancia por producto y tamaño</h3>
+            <canvas id="chart-ganancias"></canvas>
+          </div>
+          <div class="card">
+            <h3>Reparto del costo de insumos</h3>
+            <canvas id="chart-insumos"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== TAB: VENTAS ===================== -->
+      <section id="tab-ventas" class="tab-panel">
+        <div class="card-grid ventas-grid">
+          <div class="card">
+            <h2>Registrar venta</h2>
+            <form id="form-venta">
+              <label
+                >Línea de producto
+                <select id="select-linea" required></select>
+              </label>
+              <label
+                >Tamaño
+                <select id="select-tamano" required>
+                  <option value="Chica">Chica</option>
+                  <option value="Mediana">Mediana</option>
+                  <option value="Familiar">Familiar</option>
+                </select>
+              </label>
+              <label
+                >Cantidad
+                <input
+                  type="number"
+                  id="input-cantidad"
+                  min="1"
+                  value="1"
+                  required
+                />
+              </label>
+              <label class="check-label">
+                <input type="checkbox" id="check-fruta" />
+                Agregar fruta extra (+$5 / +$10 familiar)
+              </label>
+              <label id="wrap-select-fruta" class="oculto"
+                >Tipo de fruta
+                <select id="select-fruta"></select>
+              </label>
+              <button type="submit" class="btn-primario">
+                + Agregar venta
+              </button>
+            </form>
+          </div>
+
+          <div class="card ticket-card">
+            <h2>Corte de hoy</h2>
+            <p class="fecha-hoy" id="fecha-hoy"></p>
+            <ul id="ticket-lista" class="ticket-lista"></ul>
+            <div class="ticket-totales">
+              <div>
+                <span>Ingresos</span><strong id="ticket-ingreso">$0.00</strong>
+              </div>
+              <div>
+                <span>Costos</span><strong id="ticket-costo">$0.00</strong>
+              </div>
+              <div class="total-ganancia">
+                <span>Ganancia neta</span
+                ><strong id="ticket-ganancia">$0.00</strong>
+              </div>
+            </div>
+            <button id="btn-cerrar-corte" class="btn-secundario">
+              Cerrar corte y descargar PDF
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Ventas de hoy por línea</h3>
+          <canvas id="chart-ventas-hoy"></canvas>
+        </div>
+      </section>
+
+      <!-- ===================== TAB: SALARIOS ===================== -->
+      <section id="tab-salarios" class="tab-panel">
+        <div class="card">
+          <h2>Reparto de ganancias</h2>
+          <p class="card-nota">
+            Fijo: 35% fondo de resurtido · 30% Nicole · 35% Avril
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Reparto de hoy (en vivo)</h2>
+          <p class="card-nota">
+            Calculado sobre la ganancia acumulada de hoy, aunque todavía no
+            cierres el corte.
+          </p>
+          <div class="salarios-hoy">
+            <div>
+              <span>Fondo de resurtido</span
+              ><strong id="salario-resurtido">$0.00</strong>
+            </div>
+            <div>
+              <span>Nicole</span><strong id="salario-nicole">$0.00</strong>
+            </div>
+            <div>
+              <span>Avril</span><strong id="salario-avril">$0.00</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Historial de cortes</h2>
+          <div class="tabla-wrap">
+            <table class="tabla-datos">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Ingresos</th>
+                  <th>Costos</th>
+                  <th>Ganancia neta</th>
+                  <th>Resurtido</th>
+                  <th>Nicole</th>
+                  <th>Avril</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-historial-body"></tbody>
+            </table>
+          </div>
+          <canvas id="chart-historial"></canvas>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>
+        Bolitas de Hot Cake · Waffles · Mini Donitas — hecho por Avril Dayanne
+        Espinoza López
+      </p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
